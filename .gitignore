@@ -1,0 +1,13 @@
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Project specifics
+.idea*
+.
+.vscode/
+
+# Mac
+*.DS_Store/
