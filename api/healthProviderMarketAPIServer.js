@@ -5,6 +5,8 @@ var logger = require('morgan');
 const Promises = require('./controllers/utils/promises')
 
 var mongoose = require('mongoose');
+var Provider = require('./models/providerSchema');
+var Appointment = require('./models/appointmentSchema');
 
 mongoose.Promise = global.Promise;
 //TODO wrap connection code with catch and handle error
