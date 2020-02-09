@@ -17,7 +17,8 @@ const ProviderSchema = new Schema({
     },
     type_of_doctor: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     name: {
         type: String,
@@ -26,7 +27,8 @@ const ProviderSchema = new Schema({
     gender: {
         type: String,
         required: true,
-        enum: ["male", "female"]
+        enum: ["male", "female"],
+        index: true
     },
     phone: {
         type: String,

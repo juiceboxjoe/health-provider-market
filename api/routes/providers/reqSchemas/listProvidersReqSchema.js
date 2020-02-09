@@ -15,6 +15,9 @@ module.exports = {
         "page": {
             "type": "integer"
         },
+        "sortOrder": {
+            "type": "string"
+        },
         "gender": {
             "type": "string"
         },
