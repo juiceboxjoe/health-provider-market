@@ -1,16 +1,19 @@
 'use strict';
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const statesArray = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
 
 const ProviderSchema = new Schema({
-    providerId: {
-        type: Number,
-        index: true,
-        required: true
-    },
     address: {
-        type: String,
-        required: true
+        street: String,
+        city: String,
+        state: {
+            type: String,
+            uppercase: true,
+            required: true,
+            enum: statesArray
+        },
+        zip: Number
     },
     type_of_doctor: {
         type: String,
@@ -22,11 +25,12 @@ const ProviderSchema = new Schema({
     },
     gender: {
         type: String,
-        required: true
+        required: true,
+        enum: ["male", "female"]
     },
     phone: {
         type: String,
-        required: true
+        required: true,
     },
     location_marker: {
         type: Number,
@@ -42,12 +46,13 @@ const ProviderSchema = new Schema({
     },
     npi_number: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     creationDate: {
         type: Date,
-        required: true
+        default: Date.now
     }
 });
 
-module.exports = mongoose.model('Provider', ProviderSchema);
+module.exports = mongoose.model('Providers', ProviderSchema);
