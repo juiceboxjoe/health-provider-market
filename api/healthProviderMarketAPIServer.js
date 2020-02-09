@@ -1,12 +1,13 @@
 'use strict';
 
-var express = require('express');
-var logger = require('morgan');
-const Promises = require('./utils/promises')
+let express = require('express');
+let logger = require('morgan');
+let Promises = require('./utils/promises')
+let utils = require('./utils/misc')
 
-var mongoose = require('mongoose');
-var Provider = require('./models/providerSchema');
-var Appointment = require('./models/appointmentSchema');
+let mongoose = require('mongoose');
+let Provider = require('./models/providerSchema');
+let Appointment = require('./models/appointmentSchema');
 
 mongoose.Promise = global.Promise;
 //TODO wrap connection code with catch and handle error
@@ -16,10 +17,10 @@ mongoose.connect('mongodb://localhost/HEALTH_PROVIDER_MARKET_DB', {
   useUnifiedTopology: true
 });
 
-var appointmentRoutes = require('./routes/appointments/appointmentRoutes')
-var providerRoutes = require('./routes/providers/providerRoutes')
+let appointmentRoutes = require('./routes/appointments/appointmentRoutes')
+let providerRoutes = require('./routes/providers/providerRoutes')
 
-var app = express();
+let app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,7 +31,7 @@ app.use('/api/providers', providerRoutes);
 
 // catch 404 and return error promise
 app.use(function(req, res, next) {
-  return Promises.handleError(req, res, Promises.makeError('page not found', Promises.statusCodes.STATUS_404))
+  return Promises.handleError(req, res, utils.makeError('page not found', Promises.statusCodes.STATUS_404))
 });
 
 module.exports = app;

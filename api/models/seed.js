@@ -18,8 +18,8 @@ let providers = [
             zip: 12345
         },
         type_of_doctor: 'Dentist',
-        name: 'Tito',
-        gender: 'male',
+        name: 'Tita',
+        gender: 'female',
         phone: '123-123-1234',
         location_marker: 12345,
         overall_rating: 1,
