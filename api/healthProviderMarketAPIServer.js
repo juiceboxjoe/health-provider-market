@@ -16,8 +16,8 @@ mongoose.connect('mongodb://localhost/HEALTH_PROVIDER_MARKET_DB', {
   useUnifiedTopology: true
 });
 
-var marketEndpoints = require('./routes/healthProviderMarketRoutes');
 var appointmentRoutes = require('./routes/appointments/appointmentRoutes')
+var providerRoutes = require('./routes/providers/providerRoutes')
 
 var app = express();
 
@@ -25,8 +25,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/market', marketEndpoints);
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/providers', providerRoutes);
 
 // catch 404 and return error promise
 app.use(function(req, res, next) {
