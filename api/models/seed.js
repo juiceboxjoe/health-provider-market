@@ -6,7 +6,6 @@ require('./appointmentSchema');
 const Providers = mongoose.model('Providers');
 const Patients = mongoose.model('Patients');
 const Appointments = mongoose.model('Appointments');
-const ObjectId = mongoose.Types.ObjectId
 
 mongoose.Promise = global.Promise;
 
@@ -35,7 +34,7 @@ let providers = [
             state: 'FL',
             zip: 12345
         },
-        type_of_doctor: 'Dentist',
+        type_of_doctor: 'Pediatrician',
         name: 'Tito',
         gender: 'male',
         phone: '123-123-1234',
@@ -52,7 +51,7 @@ let providers = [
             state: 'FL',
             zip: 12345
         },
-        type_of_doctor: 'Dentist',
+        type_of_doctor: 'Cardiologist',
         name: 'Tito',
         gender: 'male',
         phone: '123-123-1234',
@@ -132,7 +131,6 @@ mongoose.connect('mongodb://localhost/HEALTH_PROVIDER_MARKET_DB', {
             appointments[2].patientId = insertedPatients[2]._id
 
             Appointments.insertMany(appointments).then((r) => {
-                console.log(appointments)
                 console.log('Done seeding DB')
                 db.close()
             }).catch((e) => {
