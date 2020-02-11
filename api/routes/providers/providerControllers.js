@@ -11,7 +11,10 @@ const mongoSortDict = {
 }
 
 exports.list  = (req, res) => {
-    req.query.page = parseInt(req.query.page)
+    if(typeof req.query.page == 'undefined')
+        req.query.page = 0
+    else
+        req.query.page = parseInt(req.query.page)
     Promises.hasValidQueryAndSchema(req, res, ListProvidersReqSchema)
         .then(() => {
             if(!utils.isValidMongoSortOrder(req.query.sortOrder)){
@@ -23,10 +26,11 @@ exports.list  = (req, res) => {
                 filters.gender = req.query.gender
             if(typeof req.query.availability !== 'undefined')
                 filters.availability = req.query.availability
+
             Providers.find(filters)
                 .sort({createdDate: mongoSortDict[req.query.sortOrder]})
-                .skip(req.query.page * pageSize)
-                .limit(pageSize)
+                // .skip(req.query.page * pageSize)
+                // .limit(pageSize)
                 .then((providers) => {
                     Providers.estimatedDocumentCount({})
                         .then((count) => {

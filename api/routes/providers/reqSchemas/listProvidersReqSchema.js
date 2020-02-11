@@ -28,7 +28,4 @@ module.exports = {
             "type": "string"
         }
     },
-    "required": [
-        "page"
-    ]
 }
