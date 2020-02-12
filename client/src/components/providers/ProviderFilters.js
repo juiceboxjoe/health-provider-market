@@ -11,4 +11,4 @@ class ProviderFilters extends Component {
         );
     }
 }
-export default Navbar;
+export default ProviderFilters;
