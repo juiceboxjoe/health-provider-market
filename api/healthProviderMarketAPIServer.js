@@ -17,6 +17,7 @@ mongoose.connect('mongodb://localhost/HEALTH_PROVIDER_MARKET_DB', {
   useUnifiedTopology: true
 });
 
+let userRoutes = require('./routes/users/userRoutes')
 let appointmentRoutes = require('./routes/appointments/appointmentRoutes')
 let providerRoutes = require('./routes/providers/providerRoutes')
 
@@ -26,6 +27,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/providers', providerRoutes);
 
