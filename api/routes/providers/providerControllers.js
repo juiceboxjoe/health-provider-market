@@ -3,6 +3,7 @@ const utils = require('../../utils/misc')
 const mongoose = require('mongoose');
 const Providers = mongoose.model('Providers');
 const ListProvidersReqSchema = require('./reqSchemas/listProvidersReqSchema')
+const ReadProvidersReqSchema = require('./reqSchemas/readProvidersReqSchema')
 
 const pageSize = 2
 const mongoSortDict = {
@@ -42,6 +43,22 @@ exports.list  = (req, res) => {
                         .catch((e) => {
                             return Promises.handleError(req, res, e);
                         })
+                })
+                .catch((e) => {
+                    return Promises.handleError(req, res, e);
+                })
+        })
+        .catch((e) => {
+            return Promises.handleError(req, res, e);
+        });
+}
+
+exports.read  = (req, res) => {
+    Promises.hasValidQueryAndSchema(req, res, ReadProvidersReqSchema)
+        .then(() => {
+            Providers.findOne({_id: req.query.providerId})
+                .then((provider) => {
+                    return Promises.handleSuccess(req, res, {provider});
                 })
                 .catch((e) => {
                     return Promises.handleError(req, res, e);
