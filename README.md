@@ -42,3 +42,5 @@ and start the client server
 ```
 npm run start
 ```
+
+No credentials needed for login. Just click the login button and viola!
