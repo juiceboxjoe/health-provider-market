@@ -44,3 +44,5 @@ npm run start
 ```
 
 No credentials needed for login. Just click the login button and viola!
+
+Development was tracked with git issues and most commits are tied to an issue.
