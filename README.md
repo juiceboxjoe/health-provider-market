@@ -43,6 +43,16 @@ and start the client server
 npm run start
 ```
 
-No credentials needed for login. Just click the login button and viola!
+## Important notes
 
-Development was tracked with git issues and most commits are tied to an issue.
+1) Provider search fully functional in the backend. Front end works but poor component state management triggers a page refresh thus staling the filtered providers list. 
+
+2) No credentials needed for login. Just click the login button and viola!
+
+3) Development was tracked with git issues and most commits are tied to an issue.
+
+
+## Author
+
+* **Brian Landron** - *Initial work* - [juiceboxjoe](https://github.com/juiceboxjoe) 
+
