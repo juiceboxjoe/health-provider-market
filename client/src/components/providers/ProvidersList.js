@@ -31,19 +31,20 @@ class ProvidersList extends Component {
             });
     }
 
-    make_appointment(){
-        return (null);
-    }
-
     renderProviders(){
         if(this.state.isLoading){
             return (
-                <h1>Loading...</h1>
+                <h1 className="center">Loading...</h1>
             )
         }
         else if(this.state.error != null){
             return (
-                <h1>There was an error loading this page.</h1>
+                <h1 className="center">There was an error loading this page.</h1>
+            )
+        }
+        else if(this.state.providers.length == 0){
+            return (
+                <h1 className="center">No hay medicos en el sistema.. se fueron. esto se jo... lol.</h1>
             )
         }
         else{
@@ -51,23 +52,18 @@ class ProvidersList extends Component {
                 <div>
                     {this.state.providers.map((provider) => {
                         return (
-                            <ul key={provider._id} className="collection card">
-                                <li className="collection-item">
-                                    <div className="row">
-                                        <div className="avatar left-align col s6">
-                                            <i className="material-icons circle">person</i>
-                                            <span className="title">{provider.name} </span>
-                                            <p>{provider.type_of_doctor}<br/>
-                                                {provider.address.street} <br/>
-                                                {provider.address.city}, {provider.address.state}
-                                            </p>
-                                        </div>
-
-                                    </div>
-
-                                    <div className="row card-action">
-                                        <Link to={{pathname: `make_appointment/${provider._id}`}}>Make Appointment</Link>
-                                    </div>
+                            <ul key={provider._id} className="collection card col offset-s3 s6">
+                                <li className="collection-item avatar">
+                                    <i className="material-icons circle">person</i>
+                                    <span className="title">{provider.name}</span>
+                                    <p>{provider.type_of_doctor}<br/>
+                                        {provider.phone} <br/>
+                                        {provider.address.street} <br/>
+                                        {provider.address.city}, {provider.address.state}
+                                    </p>
+                                    <Link className="secondary-content btn" to={{pathname: `make_appointment/${provider._id}`}}>
+                                        Make Appointment
+                                    </Link>
                                 </li>
                             </ul>
                         );
@@ -84,7 +80,7 @@ class ProvidersList extends Component {
                 <div className="container">
                     <div className="section">
                         <div className="row">
-                            <div className="col s12 center small">
+                            <div className="col s12 small">
                                 {this.renderProviders()}
                             </div>
                         </div>

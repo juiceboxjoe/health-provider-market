@@ -39,12 +39,12 @@ class Session extends Component {
     renderContent(){
         if(this.state.isLoading){
             return (
-                <h1>Loading...</h1>
+                <h1 className="center">Loading...</h1>
             )
         }
         else if(this.state.error != null){
             return (
-                <h1>There was an error fetching your account.</h1>
+                <h1 className="center">There was an error fetching your account.</h1>
             )
         }
         else if(this.state.session.user == ''){

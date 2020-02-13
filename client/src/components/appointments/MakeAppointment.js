@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import M from 'materialize-css'
 import axios from "axios";
 import Session from "../users/Session";
+import {Link} from "react-router-dom";
 
 class MakeAppointment extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class MakeAppointment extends Component {
         this.state = {
             sendingReq: false,
             res: '',
+            provider: '',
             req: {
                 providerId: props.match.params.providerId || '',
                 patientId: "5e3f855daef9090896b414e7",
@@ -29,8 +31,10 @@ class MakeAppointment extends Component {
     }
 
     componentDidMount() {
+        this.fetchProvider()
+
         let self = this;
-        //
+
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.datepicker');
             var instances = M.Datepicker.init(elems, {
@@ -39,6 +43,19 @@ class MakeAppointment extends Component {
                 }
             });
         });
+    }
+
+    fetchProvider(){
+        axios.get("http://localhost:3000/api/providers/read?providerId=" + this.state.req.providerId)
+            .then(res => {
+                this.setState({
+                    isLoading: false,
+                    provider: res.data.provider,
+                });
+            })
+            .catch((error) => {
+                this.setState({ error, isLoading: false })
+            });
     }
 
     handleStartTimeChange(event) {
@@ -77,81 +94,106 @@ class MakeAppointment extends Component {
         this.setState({
             sendingReq: true,
             req
-        });
-
-        axios.post("http://localhost:3000/api/appointments/create", this.state.req)
-            .then(res => {
-                this.setState({
-                    sendingReq: false,
-                    error: null,
-                    res: res.data
+        }, () => {
+            axios.post("http://localhost:3000/api/appointments/create", this.state.req)
+                .then(res => {
+                    this.setState({
+                        sendingReq: false,
+                        error: null,
+                        res: res.data
+                    });
+                })
+                .catch((error) => {
+                    this.setState({ error, sendingReq: false })
                 });
-            })
-            .catch((error) => {
-                this.setState({ error, sendingReq: false })
-            });
+        });
+    }
+
+    renderProviderCard(){
+        if(this.state.provider != ''){
+            return(
+                <ul key={this.state.provider._id} className="collection card col offset-s3 s6">
+                    <li className="collection-item avatar">
+                        <i className="material-icons circle">person</i>
+                        <span className="title">{this.state.provider.name}</span>
+                        <p>{this.state.provider.type_of_doctor}<br/>
+                            {this.state.provider.phone} <br/>
+                            {this.state.provider.address.street} <br/>
+                            {this.state.provider.address.city}, {this.state.provider.address.state}
+                        </p>
+                    </li>
+                </ul>
+            )
+        }
+        else
+            return (null)
+
     }
 
     renderContent(){
         if(this.state.sendingReq){
             return (
-                <h1>Loading...</h1>
+                <h1 className="center">Loading...</h1>
             )
         }
         else if(this.state.error != null){
             return (
-                <h1>There was an error booking your appointment. Please try again later.</h1>
+                <h1 className="center">There was an error booking your appointment. Please try again later.</h1>
             )
         }
         else if(this.state.res != ''){
             return (
-                <h1>Your appointment was saved succesfully!</h1>
+                <h1 className="center">Your appointment was scheduled successfully!</h1>
             )
         }
         else{
             return (
-                <div className="card col offset-s3 s6 center">
-                    <div>
-                        <form onSubmit={this.handleSubmit}>
-                            <label>
-                                Date:
-                                <input ref={this.datepickerRef} className="datepicker" type="text" key="date" value={this.state.req.date} onChange={this.handleDateChange} />
-                            </label>
-                            <div className="row">
-                                <div className="col s4 offset-s2">
-                                    <label>
-                                        Start Time:
-                                        <input type="time" key="startTime" value={this.state.req.startTime} onChange={this.handleStartTimeChange} required/>
-                                    </label>
+                <div>
+                    {this.renderProviderCard()}
+                    <div className="card col offset-s3 s6 center">
+                        <div>
+                            <form onSubmit={this.handleSubmit}>
+                                <label>
+                                    Date:
+                                    <input ref={this.datepickerRef} className="datepicker" type="text" key="date" value={this.state.req.date} onChange={this.handleDateChange} />
+                                </label>
+                                <div className="row">
+                                    <div className="col s4 offset-s2">
+                                        <label>
+                                            Start Time:
+                                            <input type="time" key="startTime" value={this.state.req.startTime} onChange={this.handleStartTimeChange} required/>
+                                        </label>
+                                    </div>
+                                    <div className="col s4">
+                                        <label>
+                                            End Time:
+                                            <input type="time" key="endTime" value={this.state.req.endTime} onChange={this.handleEndTimeChange} required/>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div className="col s4">
-                                    <label>
-                                        End Time:
-                                        <input type="time" key="endTime" value={this.state.req.endTime} onChange={this.handleEndTimeChange} required/>
-                                    </label>
-                                </div>
-                            </div>
 
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <textarea id="textarea1" className="materialize-textarea" required value={this.state.req.appointmentReason} onChange={this.handleReasonChange}></textarea>
-                                    <label htmlFor="textarea1">Appointment Reason</label>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <textarea id="textarea1" className="materialize-textarea" required value={this.state.req.appointmentReason} onChange={this.handleReasonChange}></textarea>
+                                        <label htmlFor="textarea1">Appointment Reason</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input key={this.state.req.providerId} type="submit" value="Submit" className="btn"/>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input key={this.state.req.providerId} type="submit" value="Submit" className="btn"/>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             );
         }
     }
+
     render() {
         return (
-            <Session>
+            // <Session>
                 <div className="container">
                     <div className="section">
                         <div className="row">
@@ -160,7 +202,7 @@ class MakeAppointment extends Component {
 
                     </div>
                 </div>
-            </Session>
+            // </Session>
         );
     }
 }
