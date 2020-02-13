@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Providers from "./components/providers/Providers";
 import MakeAppointment from "./components/appointments/MakeAppointment";
-
+import Login from "./components/users/Login"
 
 class App extends Component {
   render() {
@@ -12,6 +12,7 @@ class App extends Component {
                 <div className="App">
                   <Navbar/>
                   <Route exact path="/" component={Providers} />
+                  <Route exact path="/login" component={Login} />
                   <Route exact path="/make_appointment/:providerId" component={MakeAppointment} />
                 </div>
                 {/*<Redirect exact from="/" to="/providers" />*/}

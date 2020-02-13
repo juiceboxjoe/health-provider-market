@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import M from 'materialize-css'
 import axios from "axios";
-import {Link} from "react-router-dom";
+import Session from "../users/Session";
 
 class MakeAppointment extends Component {
     constructor(props) {
@@ -151,15 +151,16 @@ class MakeAppointment extends Component {
     }
     render() {
         return (
-            <div className="container">
-                <div className="section">
-                    <div className="row">
-                        {this.renderContent()}
+            <Session>
+                <div className="container">
+                    <div className="section">
+                        <div className="row">
+                            {this.renderContent()}
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
-
+            </Session>
         );
     }
 }

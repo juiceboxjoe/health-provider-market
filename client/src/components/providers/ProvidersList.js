@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Session from "../users/Session";
 
 class ProvidersList extends Component {
     constructor(props){
@@ -10,7 +11,6 @@ class ProvidersList extends Component {
             providers: [],
             error: null,
         };
-
     }
 
     componentDidMount() {
@@ -80,16 +80,19 @@ class ProvidersList extends Component {
     }
     render() {
         return (
-            <div className="container">
-                <div className="section">
-                    <div className="row">
-                        <div className="col s12 center small">
-                            {this.renderProviders()}
+            <Session>
+                <div className="container">
+                    <div className="section">
+                        <div className="row">
+                            <div className="col s12 center small">
+                                {this.renderProviders()}
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
+            </Session>
+
         );
     }
 }
