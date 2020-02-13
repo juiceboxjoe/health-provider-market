@@ -60,6 +60,57 @@ let providers = [
         calendar_id: 'calendarid',
         npi_number: 'mynpi#',
         creationDate: new Date()
+    },
+    {
+        address: {
+            street: 'Street number',
+            city: 'My City',
+            state: 'FL',
+            zip: 12345
+        },
+        type_of_doctor: 'Cardiologist',
+        name: 'Fulano',
+        gender: 'male',
+        phone: '123-123-1234',
+        location_marker: 12345,
+        overall_rating: 1,
+        calendar_id: 'calendarid',
+        npi_number: 'mynpi#',
+        creationDate: new Date()
+    },
+    {
+        address: {
+            street: 'Street number',
+            city: 'My City',
+            state: 'FL',
+            zip: 12345
+        },
+        type_of_doctor: 'Cardiologist',
+        name: 'Fulana',
+        gender: 'male',
+        phone: '123-123-1234',
+        location_marker: 12345,
+        overall_rating: 1,
+        calendar_id: 'calendarid',
+        npi_number: 'mynpi#',
+        creationDate: new Date()
+    },
+    {
+        address: {
+            street: 'Street number',
+            city: 'My City',
+            state: 'FL',
+            zip: 12345
+        },
+        type_of_doctor: 'Cardiologist',
+        name: 'Sutano',
+        gender: 'male',
+        phone: '123-123-1234',
+        location_marker: 12345,
+        overall_rating: 1,
+        calendar_id: 'calendarid',
+        npi_number: 'mynpi#',
+        creationDate: new Date()
     }
 ]
 

@@ -27,6 +27,11 @@ exports.list  = (req, res) => {
                 filters.gender = req.query.gender
             if(typeof req.query.availability !== 'undefined')
                 filters.availability = req.query.availability
+            if(typeof req.query.providerName !== 'undefined' && req.query.providerName != ""){
+                // let s = '.*' + req.query.providerName + '*.'
+                filters.name = new RegExp(req.query.providerName, 'i')
+            }
+
 
             Providers.find(filters)
                 .sort({createdDate: mongoSortDict[req.query.sortOrder]})

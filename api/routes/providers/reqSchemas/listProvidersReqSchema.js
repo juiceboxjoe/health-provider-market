@@ -26,6 +26,9 @@ module.exports = {
         },
         "typeOfDoctor": {
             "type": "string"
+        },
+        "providerName": {
+            "type": "string"
         }
     },
 }
